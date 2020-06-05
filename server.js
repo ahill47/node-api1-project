@@ -1,7 +1,11 @@
 const express = require ('express');
-const server = express ();
+const db=require('./database.js');
 
-server.get('/', (req, res)=>{
+
+const server = express ();
+server.use(express.json())
+
+server.get('/users', (req, res)=>{
 
 })
 
