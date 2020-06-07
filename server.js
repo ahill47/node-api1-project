@@ -43,19 +43,32 @@ server.delete('/api/users/:id', (req,res) => {
     }
 });
 
-server.put('/api/users/:id', (req,res) => {
- const user=db.getUserById(req.params.id)
- if (user){
-     const updatedUser=db.updateUser(user.id, {
-         name:req.body.name || user.name,
-         bio:req.body.bio || user.bio
-     });
-     res.status(200).json(updatedUser)
- }else{
-     res.status(500).json({ errorMessage: "The user information could not be modified." })
- }
+// server.put('/api/users/:id', (req,res) => {
+//  const user=db.getUserById(req.params.id)
+//  if (user){
+//      const updatedUser=db.updateUser(user.id, {
+//          name:req.body.name || user.name,
+//          bio:req.body.bio || user.bio
+//      });
+//      res.status(200).json(updatedUser)
+//  }else{
+//      res.status(500).json({ errorMessage: "The user information could not be modified." })
+//  }
  
-});
+// });
+server.get('/api/users/:id', (req, res)=>{
+    let user
+    try {
+      user = db.getUserById(req.params.id)
+      if (user) {
+        res.status(200).json(user)
+      } else {
+        res.status(404).json({ message: "The user with the specified ID does not exist." })
+      }
+    } catch (error) {
+      res.status(500).json({ errorMessage: "The user information could not be retrieved." })
+    }
+})
 
 
 server.post('/api/users' , (req, res) => {
