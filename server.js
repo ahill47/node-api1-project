@@ -33,6 +33,7 @@ server.get('/api/users/:id', (req,res) => {
 server.delete('/api/users/:id', (req,res) => {
     const user=db.getUserById(req.params.id)
     if (user){
+        db.deleteUser(user.id)
         res.json(user.id)
         res.status(204).end()
     }else{
